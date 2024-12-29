@@ -4,7 +4,7 @@ import { createOrUpdateUser, deleteUser } from '@/lib/actions/user'
 import { clerkClient } from '@clerk/nextjs/server'
 
 export async function POST(req) {
-  const SIGNING_SECRET = process.env.SIGNING_SECRET
+  const SIGNING_SECRET = process.env.SIGNING_SECRET;
 
   if (!SIGNING_SECRET) {
     throw new Error('Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local')
@@ -48,24 +48,24 @@ export async function POST(req) {
 
   // Do something with payload
   // For this guide, log payload to console
-  const { id } = evt?.data
-  const eventType = evt?.type
+  const { id } = evt?.data;
+  const eventType = evt?.type;
 
   if(eventType === 'user.created' || eventType === 'user.updated') {
-    const { first_name, last_name, image_url, email_adddresses } = evt?.data;
+    const { first_name, last_name, image_url, email_addresses } = evt?.data;
     try {
       const user = await createOrUpdateUser(
         id,
         first_name,
         last_name,
         image_url,
-        email_adddresses,
+        email_addresses,
       );
       if(user && eventType === 'user.created') {
         try {
           await clerkClient.user.updateUserMetadata(id, {
             publicMetadata: {
-              userMongoId: user._id,
+              userMogoId: user._id,
             },
           });
         } catch (error) {
