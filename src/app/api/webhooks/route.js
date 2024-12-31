@@ -14,7 +14,7 @@ export async function POST(req) {
   const wh = new Webhook(SIGNING_SECRET)
 
   // Get headers
-  const headerPayload = await headers()
+  const headerPayload = await headers();
   const svix_id = headerPayload.get('svix-id')
   const svix_timestamp = headerPayload.get('svix-timestamp')
   const svix_signature = headerPayload.get('svix-signature')
@@ -45,6 +45,7 @@ export async function POST(req) {
       status: 400,
     })
   }
+
 
   // Do something with payload
   // For this guide, log payload to console
