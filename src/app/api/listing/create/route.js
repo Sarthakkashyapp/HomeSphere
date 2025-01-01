@@ -6,13 +6,14 @@ export const POST = async (req) => {
   try {
     await connect();
     const data = await req.json();
-    if (!user || user.publicMetadata.userMogoId !== data.userMongoId) {
+
+    if (!user) {
       return new Response('Unauthorized', {
         status: 401,
       });
     }
     const newListing = await Listing.create({
-      userRef: user.publicMetadata.userMogoId,
+      userRef: user.publicMetadata.userMongoId,
       name: data.name,
       description: data.description,
       address: data.address,
@@ -27,7 +28,7 @@ export const POST = async (req) => {
       imageUrls: data.imageUrls,
     });
     await newListing.save();
-    return new Response(JSON.stringify(newPost), {
+    return new Response(JSON.stringify(newListing), {
       status: 200,
     });
   } catch (error) {

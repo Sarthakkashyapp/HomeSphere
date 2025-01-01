@@ -6,7 +6,7 @@ export const POST = async (req) => {
   try {
     await connect();
     const data = await req.json();
-    if (!user || user.publicMetadata.userMogoId !== data.userMongoId) {
+    if (!user || user.publicMetadata.userMongoId !== data.userMongoId) {
       return new Response('Unauthorized', {
         status: 401,
       });
