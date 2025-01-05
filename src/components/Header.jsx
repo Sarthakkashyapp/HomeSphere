@@ -56,7 +56,7 @@ export default function Header() {
             <FaSearch className='text-slate-600' />
           </button>
         </form>
-        <ul className='flex gap-4'>
+        <ul className='hidden md:flex gap-4'>
           <Link href='/'>
             <li className='hidden md:inline text-slate-700 hover:underline'>
               Home
@@ -85,7 +85,7 @@ export default function Header() {
         </ul>
 
         {/* Hamburger Menu */}
-        <div className='md:hidden'>
+        <div className='md:hidden hover:cursor-pointer'>
           <Hamburger
             isOpen={isOpen}
             menuClicked={() => setIsOpen(!isOpen)}
